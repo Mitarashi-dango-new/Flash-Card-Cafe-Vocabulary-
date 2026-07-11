@@ -1,444 +1,330 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-<title>Cafe Vocabulary Review</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>学習ページ</title>
 
 <style>
-
-*{margin:0;padding:0;box-sizing:border-box;}
-
 body{
-    font-family:'Kiwi Maru',serif;
-    background:#f6efe7;
-    color:#5c4635;
-}
-
-/* ヘッダー */
-.header{
-    position:sticky;
-    top:0;
-    background:#f6efe7;
-    padding:14px;
-    border-bottom:1px solid #e7d7c9;
-}
-
-.header h1{
-    font-size:20px;
-    color:#6f4e37;
-}
-
-.tabs{
+    margin:0;
+    font-family:Georgia, serif;
+    background:#f2e9e4;
     display:flex;
-    gap:10px;
-    margin-top:10px;
-}
-
-.tab-btn{
-    flex:1;
-    padding:10px;
-    border:none;
-    border-radius:14px;
-    background:#fff;
-    font-weight:700;
-}
-
-.tab-btn.active{
-    background:#6f4e37;
-    color:white;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
 }
 
 .container{
-    padding:16px;
+    width:500px;
+    text-align:center;
 }
 
-/* セクション */
-.section{
-    background:#fffaf5;
-    padding:14px;
-    border-radius:18px;
-    margin-bottom:14px;
-    box-shadow:0 5px 15px rgba(0,0,0,0.06);
-}
-
-/* 入力 */
-input, select{
-    width:100%;
-    padding:12px;
-    margin-bottom:10px;
-    border-radius:12px;
-    border:1px solid #e7d7c9;
-}
-
-/* ボタン */
-.btn{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    background:#a47148;
-    color:white;
-    font-weight:700;
-}
-
-/* カテゴリ */
-.category-item{
+.mode{
     display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:10px;
-    border-radius:12px;
-    background:#fff;
-    margin-bottom:8px;
-    border:1px solid #e7d7c9;
-}
-
-/* ×ボタン */
-.x-btn{
-    background:#b08968;
-    color:#fffaf5;
-    border:none;
-    border-radius:6px;
-    width:20px;
-    height:20px;
-    font-size:12px;
-    font-weight:700;
-    display:flex;
-    align-items:center;
     justify-content:center;
-    cursor:pointer;
-    opacity:0.85;
+    gap:10px;
+    margin-bottom:15px;
 }
 
-/* 単語カード */
-.list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
+.mode button{
+    width:140px;
+}
+
+.active{
+    background:#8b5e3c;
 }
 
 .card{
-    background:#fffaf5;
-    padding:16px;
-    border-radius:18px;
-    position:relative;
+    background:#fff8f0;
+    padding:70px;
+    border-radius:20px;
+    font-size:2rem;
+    cursor:pointer;
+    color:#6b4226;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
 }
 
-.word{
-    font-size:20px;
-    font-weight:700;
-}
-
-.category{
-    font-size:12px;
-    color:#a47148;
-}
-
-.meaning{
-    margin-top:10px;
-    display:none;
-}
-
-.card.show .meaning{display:block;}
-
-.buttons{
-    margin-top:12px;
-    display:none;
-    gap:8px;
-}
-
-.card.show .buttons{display:flex;}
-
-.ok{background:#6b8e23;}
-.ng{background:#b45309;}
-
-.miss{
-    margin-top:10px;
-    font-size:13px;
-    color:#c2410c;
-}
-
-/* 単語削除 */
-.delete-word{
-    position:absolute;
-    top:10px;
-    right:10px;
-}
-
-/* ページ */
-.page{display:none;}
-.page.active{display:block;}
-
-/* ★追加：モードボタン */
-.mode-bar{
+.controls{
+    margin-top:20px;
     display:flex;
-    gap:10px;
-    margin-bottom:10px;
+    justify-content:space-between;
 }
 
-.mode-btn{
-    flex:1;
-    padding:10px;
+button{
+    padding:10px 20px;
     border:none;
     border-radius:12px;
-    background:#ddd;
-    font-weight:700;
-}
-
-.mode-btn.active{
-    background:#6f4e37;
+    background:#d6a77a;
     color:white;
+    cursor:pointer;
+    font-size:16px;
 }
 
+.page{
+    margin-top:10px;
+    color:#6b4226;
+    font-weight:bold;
+}
+
+.answer{
+    display:none;
+    margin-top:20px;
+    justify-content:center;
+    gap:20px;
+}
+
+.answer button{
+    width:150px;
+}
+
+.correct{
+    background:#4caf50;
+}
+
+.wrong{
+    background:#e74c3c;
+}
+
+.score{
+    margin-top:15px;
+    color:#6b4226;
+    font-weight:bold;
+}
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <h1>☕ Cafe Vocabulary</h1>
-
-    <div class="tabs">
-        <button class="tab-btn active" onclick="show('manage')">管理</button>
-        <button class="tab-btn" onclick="show('study')">学習</button>
-    </div>
-</div>
-
 <div class="container">
 
-<!-- 管理 -->
-<div id="manage" class="page active">
-
-    <div class="section">
-        <h3>📂 カテゴリ</h3>
-
-        <input id="newCategory" placeholder="カテゴリ追加">
-        <button class="btn" onclick="addCategory()">追加</button>
-
-        <div id="categoryList"></div>
+    <!-- 学習モード切替 -->
+    <div class="mode">
+        <button id="normalBtn" class="active" onclick="setMode(false)">登録順</button>
+        <button id="sortBtn" onclick="setMode(true)">苦手順</button>
     </div>
 
-    <div class="section">
-        <h3>📚 単語追加</h3>
+    <div class="card" id="card">Loading...</div>
 
-        <select id="categorySelect"></select>
+    <div class="page" id="page"></div>
 
-        <input id="word" placeholder="単語">
-        <input id="meaning" placeholder="意味">
-
-        <button class="btn" onclick="addWord()">追加</button>
+    <div class="answer" id="answer">
+        <button class="correct" onclick="recordAnswer(true)">⭕ 正解</button>
+        <button class="wrong" onclick="recordAnswer(false)">❌ 不正解</button>
     </div>
 
-    <div id="manageList" class="list"></div>
+    <div class="score" id="score"></div>
 
-</div>
-
-<!-- 学習 -->
-<div id="study" class="page">
-
-    <!-- ★追加：復習モードUI -->
-    <div class="section">
-
-        <div class="mode-bar">
-            <button id="allBtn" class="mode-btn active" onclick="setMode('all')">全単語</button>
-            <button id="reviewBtn" class="mode-btn" onclick="setMode('review')">復習</button>
-        </div>
-
+    <div class="controls">
+        <button onclick="prev()">前へ</button>
+        <button onclick="next()">次へ</button>
     </div>
 
-    <div class="section">
-        <select id="studyFilter" onchange="renderStudy()"></select>
-    </div>
-
-    <div id="studyList" class="list"></div>
-
-</div>
+    <br>
+    <a href="home.html">ホーム</a>
 
 </div>
 
 <script>
 
-let words = JSON.parse(localStorage.getItem("words")) || [];
-let categories = JSON.parse(localStorage.getItem("categories")) || ["未分類"];
+let cards = JSON.parse(localStorage.getItem("flashcards")) || [
+    {
+        front:"Apple",
+        back:"りんご",
+        correct:0,
+        wrong:0
+    },
+    {
+        front:"Dog",
+        back:"犬",
+        correct:0,
+        wrong:0
+    }
+];
 
-/* ★追加：モード */
-let mode = "all";
+// 古いデータ対応
+cards.forEach(card=>{
+    if(card.correct===undefined) card.correct=0;
+    if(card.wrong===undefined) card.wrong=0;
+});
+
+// 表示用配列
+let studyCards = [];
+
+// false=登録順 true=苦手順
+let sortMode = false;
+
+let i = 0;
+let front = true;
+
+const card = document.getElementById("card");
+const page = document.getElementById("page");
+const answerBox = document.getElementById("answer");
+const score = document.getElementById("score");
 
 function save(){
-    localStorage.setItem("words", JSON.stringify(words));
-    localStorage.setItem("categories", JSON.stringify(categories));
+    localStorage.setItem("flashcards",JSON.stringify(cards));
 }
 
-function show(page){
-    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-    document.getElementById(page).classList.add("active");
-
-    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
-    event.target.classList.add("active");
+// 正解率
+function rate(c){
+    const total=c.correct+c.wrong;
+    return total===0 ? 0 : c.correct/total;
 }
 
-/* ★追加：モード切替 */
-function setMode(m){
-    mode = m;
+// 学習配列を更新
+function updateStudyCards(){
 
-    document.getElementById("allBtn").classList.remove("active");
-    document.getElementById("reviewBtn").classList.remove("active");
+    if(!sortMode){
 
-    if(m === "all"){
-        document.getElementById("allBtn").classList.add("active");
-    } else {
-        document.getElementById("reviewBtn").classList.add("active");
+        // 登録順
+        studyCards=[...cards];
+
+    }else{
+
+        // 苦手順
+        studyCards=[...cards];
+
+        studyCards.sort((a,b)=>{
+
+            const r1=rate(a);
+            const r2=rate(b);
+
+            if(r1!==r2){
+                return r1-r2;
+            }
+
+            const t1=a.correct+a.wrong;
+            const t2=b.correct+b.wrong;
+
+            return t2-t1;
+
+        });
+
     }
 
-    renderStudy();
-}
-
-/* 追加 */
-function addCategory(){
-    const c = newCategory.value.trim();
-    if(!c) return;
-    if(!categories.includes(c)) categories.push(c);
-    save();
-    render();
-    newCategory.value="";
-}
-
-function deleteCategory(name){
-    if(!confirm("削除しますか？")) return;
-    categories = categories.filter(c=>c!==name);
-    words.forEach(w=>{if(w.category===name) w.category="未分類";});
-    save();
-    render();
-}
-
-function addWord(){
-    const w=word.value.trim();
-    const m=meaning.value.trim();
-    const c=categorySelect.value;
-
-    if(!w||!m){alert("入力してください");return;}
-
-    words.push({word:w,meaning:m,category:c,miss:0});
-    save();
-    render();
-
-    word.value="";
-    meaning.value="";
-}
-
-function deleteWord(i){
-    if(!confirm("削除しますか？")) return;
-    words.splice(i,1);
-    save();
-    render();
-}
-
-function ok(e,i){
-    e.stopPropagation();
-    if(words[i].miss>0) words[i].miss--;
-    save();
-    render();
-}
-
-function ng(e,i){
-    e.stopPropagation();
-    words[i].miss++;
-    save();
-    render();
-}
-
-function openCard(i){
-    document.getElementById("card-"+i).classList.add("show");
-}
-
-/* 描画 */
-function renderCategories(){
-    const el=document.getElementById("categoryList");
-    el.innerHTML="";
-    categories.forEach(c=>{
-        el.innerHTML+=`
-        <div class="category-item">
-            <span>${c}</span>
-            <button class="x-btn" onclick="deleteCategory('${c}')">×</button>
-        </div>`;
-    });
-}
-
-function renderSelects(){
-    const sel=categorySelect;
-    const filter=studyFilter;
-
-    sel.innerHTML="";
-    filter.innerHTML=`<option value="all">すべて</option>`;
-
-    categories.forEach(c=>{
-        sel.innerHTML+=`<option value="${c}">${c}</option>`;
-        filter.innerHTML+=`<option value="${c}">${c}</option>`;
-    });
-}
-
-function renderManage(){
-    const el=document.getElementById("manageList");
-    el.innerHTML="";
-    words.forEach((v,i)=>{
-        el.innerHTML+=`
-        <div class="card">
-            <div class="delete-word">
-                <button class="x-btn" onclick="deleteWord(${i})">×</button>
-            </div>
-            <div class="word">${v.word}</div>
-            <div class="category">📂 ${v.category}</div>
-            <div class="meaning">${v.meaning}</div>
-            <div class="miss">ミス: ${v.miss}</div>
-        </div>`;
-    });
-}
-
-/* ★修正：復習モード追加 */
-function renderStudy(){
-
-    const filter=studyFilter.value;
-    const el=document.getElementById("studyList");
-
-    el.innerHTML="";
-
-    let list = filter === "all"
-        ? words
-        : words.filter(v=>v.category===filter);
-
-    // ★ここが復習モード
-    if(mode === "review"){
-        list = list.filter(v=>v.miss > 0);
+    if(i>=studyCards.length){
+        i=studyCards.length-1;
     }
 
-    list.forEach(v=>{
-        const i=words.indexOf(v);
+    if(i<0){
+        i=0;
+    }
 
-        el.innerHTML+=`
-        <div class="card" id="card-${i}" onclick="openCard(${i})">
-            <div class="word">${v.word}</div>
-            <div class="category">📂 ${v.category}</div>
-            <div class="meaning">${v.meaning}</div>
-
-            <div class="buttons">
-                <button class="btn ok" onclick="ok(event,${i})">正解</button>
-                <button class="btn ng" onclick="ng(event,${i})">不正解</button>
-            </div>
-
-            <div class="miss">ミス: ${v.miss}</div>
-        </div>`;
-    });
 }
+
+function setMode(mode){
+
+    sortMode=mode;
+
+    document.getElementById("normalBtn").classList.toggle("active",!mode);
+    document.getElementById("sortBtn").classList.toggle("active",mode);
+
+    i=0;
+    front=true;
+
+    updateStudyCards();
+
+    render();
+
+}
+
+updateStudyCards();
 
 function render(){
-    renderCategories();
-    renderSelects();
-    renderManage();
-    renderStudy();
+
+    if(studyCards.length===0){
+
+        card.textContent="単語がありません";
+        page.textContent="";
+        score.textContent="";
+        answerBox.style.display="none";
+        return;
+
+    }
+
+    const c=studyCards[i];
+
+    card.textContent=front ? c.front : c.back;
+
+    page.textContent=`${i+1} / ${studyCards.length}`;
+
+    answerBox.style.display=front ? "none":"flex";
+
+    score.textContent=`⭕ ${c.correct}　❌ ${c.wrong}`;
+}
+
+// カードをクリック
+card.onclick=()=>{
+    front=!front;
+    render();
+};
+
+// 正誤記録
+function recordAnswer(correct){
+
+    const c=studyCards[i];
+
+    if(correct){
+        c.correct++;
+    }else{
+        c.wrong++;
+    }
+    save();
+
+    // 苦手順モードなら並び替えを更新
+    if(sortMode){
+
+        // 現在のカードを保持
+        const current = c;
+
+        updateStudyCards();
+
+        // 並び替え後の位置を取得
+        const newIndex = studyCards.indexOf(current);
+
+        // 次のカードへ
+        if(newIndex < studyCards.length - 1){
+            i = newIndex + 1;
+        }else{
+            i = newIndex;
+        }
+
+    }else{
+
+        // 登録順モード
+        if(i < studyCards.length - 1){
+            i++;
+        }
+
+    }
+
+    front = true;
+    render();
+
+}
+
+// 前へ
+function prev(){
+
+    if(i > 0){
+        i--;
+        front = true;
+        render();
+    }
+
+}
+
+// 次へ
+function next(){
+
+    if(i < studyCards.length - 1){
+        i++;
+        front = true;
+        render();
+    }
+
 }
 
 render();
@@ -446,4 +332,4 @@ render();
 </script>
 
 </body>
-</html>
+</html>                                                             

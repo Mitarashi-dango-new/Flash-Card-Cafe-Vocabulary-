@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>管理</title>
+
+<style>
+body{
+    font-family:Georgia,serif;
+    background:#f2e9e4;
+    padding:30px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff8f0;
+    padding:30px;
+    border-radius:20px;
+}
+
+input{
+    padding:10px;
+    margin-right:5px;
+}
+
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:10px;
+    background:#d6a77a;
+    color:white;
+    cursor:pointer;
+}
+
+table{
+    width:100%;
+    margin-top:20px;
+    border-collapse:collapse;
+}
+
+td,th{
+    border:1px solid #d6a77a;
+    padding:8px;
+    text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>単語管理</h1>
+
+<input id="front" placeholder="英単語">
+<input id="back" placeholder="意味">
+<button onclick="addWord()">追加</button>
+
+<table>
+<thead>
+<tr>
+<th>表</th>
+<th>裏</th>
+<th>⭕ 正解</th>
+<th>❌ 不正解</th>
+<th>編集</th>
+<th>削除</th>
+</tr>
+</thead>
+
+<tbody id="list"></tbody>
+
+</table>
+
+<br>
+<a href="home.html">ホーム</a>
+
+</div>
+
+<script>
+
+let cards = JSON.parse(localStorage.getItem("flashcards")) || [];
+
+// 古いデータにも対応
+cards.forEach(c=>{
+    if(c.correct===undefined) c.correct=0;
+    if(c.wrong===undefined) c.wrong=0;
+});
+
+function save(){
+    localStorage.setItem("flashcards",JSON.stringify(cards));
+}
+
+function render(){
+
+    const list=document.getElementById("list");
+    list.innerHTML="";
+
+    cards.forEach((c,i)=>{
+
+        list.innerHTML+=`
+        <tr>
+            <td>${c.front}</td>
+            <td>${c.back}</td>
+            <td>${c.correct}</td>
+            <td>${c.wrong}</td>
+            <td><button onclick="edit(${i})">編集</button></td>
+            <td><button onclick="del(${i})">削除</button></td>
+        </tr>
+        `;
+
+    });
+
+}
+
+function addWord(){
+
+    const f=document.getElementById("front").value;
+    const b=document.getElementById("back").value;
+
+    if(!f||!b){
+        alert("入力してください");
+        return;
+    }
+
+    cards.push({
+        front:f,
+        back:b,
+        correct:0,
+        wrong:0
+    });
+
+    save();
+    render();
+
+    document.getElementById("front").value="";
+    document.getElementById("back").value="";
+}
+
+function del(i){
+
+    cards.splice(i,1);
+
+    save();
+    render();
+
+}
+
+function edit(i){
+
+    let f=prompt("表",cards[i].front);
+    let b=prompt("裏",cards[i].back);
+
+    if(!f||!b) return;
+
+    // 正誤回数を保持
+    cards[i].front=f;
+    cards[i].back=b;
+
+    save();
+    render();
+
+}
+
+render();
+
+</script>
+
+</body>
+</html>
