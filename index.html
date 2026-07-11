@@ -1,70 +1,50 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Cafe Vocabulary</title>
+<title>Cafe Vocabulary Review</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box;}
 
 body{
-    font-family:"Noto Sans JP",sans-serif;
-    background:#f6efe6;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
+    font-family:'Kiwi Maru',serif;
+    background:#f6efe7;
+    color:#5c4635;
 }
 
-.container{
-    width:100%;
-    max-width:430px;
-    padding:15px;
+/* ヘッダー */
+.header{
+    position:sticky;
+    top:0;
+    background:#f6efe7;
+    padding:14px;
+    border-bottom:1px solid #e7d7c9;
 }
 
-/* タイトル */
-
-.title{
-    text-align:center;
-    margin:10px 0 15px;
-    color:#5a3825;
+.header h1{
+    font-size:20px;
+    color:#6f4e37;
 }
 
-.title h1{
-    font-family:"Playfair Display",serif;
-    font-size:2rem;
-}
-
-/* タブ */
-
-.top-tabs{
+.tabs{
     display:flex;
     gap:10px;
-    margin-bottom:18px;
+    margin-top:10px;
 }
 
 .tab-btn{
     flex:1;
-    height:52px;
+    padding:10px;
     border:none;
-    border-radius:16px;
-    background:rgba(255,255,255,.8);
-    color:#6f4e37;
+    border-radius:14px;
+    background:#fff;
     font-weight:700;
-    cursor:pointer;
-    transition:.2s;
-}
-
-.tab-btn:hover{
-    opacity:.9;
 }
 
 .tab-btn.active{
@@ -72,196 +52,146 @@ body{
     color:white;
 }
 
-.tab-content{
-    display:none;
+.container{
+    padding:16px;
 }
 
-.tab-content.active{
-    display:block;
+/* セクション */
+.section{
+    background:#fffaf5;
+    padding:14px;
+    border-radius:18px;
+    margin-bottom:14px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.06);
 }
 
-/* カード */
-
-.card{
+/* 入力 */
+input, select{
     width:100%;
-    aspect-ratio:9/14;
-    min-height:420px;
-    border-radius:30px;
-    background:white;
-    box-shadow:0 15px 40px rgba(0,0,0,.15);
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
-    cursor:pointer;
-}
-
-.word{
-    font-size:2.4rem;
-    font-weight:700;
-    color:#5a3825;
-    text-align:center;
-}
-
-.meaning{
-    margin-top:25px;
-    font-size:1.6rem;
-    color:#6f4e37;
-    opacity:0;
-    max-height:0;
-    overflow:hidden;
-    transition:.3s;
-}
-
-.meaning.show{
-    opacity:1;
-    max-height:120px;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:12px;
+    border:1px solid #e7d7c9;
 }
 
 /* ボタン */
-
-button{
+.btn{
+    width:100%;
+    padding:12px;
     border:none;
-    border-radius:14px;
-    padding:14px;
-    font-weight:700;
-    cursor:pointer;
-}
-
-.controls{
-    display:flex;
-    gap:12px;
-    margin-top:15px;
-}
-
-.prev{
-    background:#d8c3a5;
-}
-
-.next{
-    background:#6f4e37;
-    color:white;
-}
-
-.progress{
-    text-align:center;
-    margin-top:15px;
-    color:#5a3825;
-    font-weight:600;
-}
-
-/* 管理画面 */
-
-.add-area{
-    background:white;
-    border-radius:25px;
-    padding:25px;
-}
-
-.add-area h2{
-    text-align:center;
-    color:#5a3825;
-    margin-bottom:20px;
-}
-
-.input-group{
-    margin-bottom:15px;
-}
-
-label{
-    display:block;
-    margin-bottom:8px;
-    color:#5a3825;
-    font-weight:600;
-}
-
-input{
-    width:100%;
-    padding:14px;
     border-radius:12px;
-    border:1px solid #d8c3a5;
-    font-size:15px;
-}
-
-.add-btn{
-    width:100%;
-    background:#8b5e3c;
+    background:#a47148;
     color:white;
-    margin-top:10px;
-}
-
-.message{
-    margin-top:10px;
-    text-align:center;
-    color:#2f7a35;
-}
-
-/* 単語一覧 */
-
-.list-title{
-    margin-top:22px;
-    color:#5a3825;
     font-weight:700;
 }
 
-.word-item{
+/* カテゴリ */
+.category-item{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    background:#fffaf3;
-    padding:12px;
+    padding:10px;
     border-radius:12px;
-    margin-top:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,.05);
+    background:#fff;
+    margin-bottom:8px;
+    border:1px solid #e7d7c9;
 }
 
-.word-name{
+/* ×ボタン */
+.x-btn{
+    background:#b08968;
+    color:#fffaf5;
+    border:none;
+    border-radius:6px;
+    width:20px;
+    height:20px;
+    font-size:12px;
     font-weight:700;
-    color:#5a3825;
-}
-
-.word-meaning{
-    font-size:.9rem;
-    color:#6f4e37;
-    opacity:.8;
-}
-
-.actions{
     display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    opacity:0.85;
+}
+
+/* 単語カード */
+.list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.card{
+    background:#fffaf5;
+    padding:16px;
+    border-radius:18px;
+    position:relative;
+}
+
+.word{
+    font-size:20px;
+    font-weight:700;
+}
+
+.category{
+    font-size:12px;
+    color:#a47148;
+}
+
+.meaning{
+    margin-top:10px;
+    display:none;
+}
+
+.card.show .meaning{display:block;}
+
+.buttons{
+    margin-top:12px;
+    display:none;
     gap:8px;
 }
 
-.edit-btn,
-.delete-btn{
-    width:36px;
-    height:36px;
-    border:none;
-    border-radius:10px;
+.card.show .buttons{display:flex;}
+
+.ok{background:#6b8e23;}
+.ng{background:#b45309;}
+
+.miss{
+    margin-top:10px;
+    font-size:13px;
+    color:#c2410c;
+}
+
+/* 単語削除 */
+.delete-word{
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+
+/* ページ */
+.page{display:none;}
+.page.active{display:block;}
+
+/* ★追加：モードボタン */
+.mode-bar{
     display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
+    gap:10px;
+    margin-bottom:10px;
 }
 
-.edit-btn{
-    background:#d8c3a5;
-    color:#5a3825;
+.mode-btn{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:12px;
+    background:#ddd;
+    font-weight:700;
 }
 
-.edit-btn:hover{
-    background:#c9b08d;
-}
-
-.delete-btn{
+.mode-btn.active{
     background:#6f4e37;
     color:white;
-}
-
-.delete-btn:hover{
-    background:#5b3d2a;
 }
 
 </style>
@@ -269,62 +199,62 @@ input{
 
 <body>
 
+<div class="header">
+    <h1>☕ Cafe Vocabulary</h1>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="show('manage')">管理</button>
+        <button class="tab-btn" onclick="show('study')">学習</button>
+    </div>
+</div>
+
 <div class="container">
 
-<div class="title">
-    <h1>☕ Cafe Vocabulary</h1>
-</div>
+<!-- 管理 -->
+<div id="manage" class="page active">
 
-<div class="top-tabs">
-    <button class="tab-btn active" onclick="showTab('study')">単語帳</button>
-    <button class="tab-btn" onclick="showTab('add')">追加</button>
-</div>
+    <div class="section">
+        <h3>📂 カテゴリ</h3>
 
-<!-- 単語帳 -->
+        <input id="newCategory" placeholder="カテゴリ追加">
+        <button class="btn" onclick="addCategory()">追加</button>
 
-<div class="tab-content active" id="studyTab">
-
-    <div class="card" id="card">
-        <div class="word" id="word"></div>
-        <div class="meaning" id="meaning"></div>
+        <div id="categoryList"></div>
     </div>
 
-    <div class="progress" id="progress"></div>
+    <div class="section">
+        <h3>📚 単語追加</h3>
 
-    <div class="controls">
-        <button class="prev" onclick="prevCard()">前へ</button>
-        <button class="next" onclick="nextCard()">次へ</button>
+        <select id="categorySelect"></select>
+
+        <input id="word" placeholder="単語">
+        <input id="meaning" placeholder="意味">
+
+        <button class="btn" onclick="addWord()">追加</button>
     </div>
+
+    <div id="manageList" class="list"></div>
 
 </div>
 
-<!-- 管理画面 -->
+<!-- 学習 -->
+<div id="study" class="page">
 
-<div class="tab-content" id="addTab">
+    <!-- ★追加：復習モードUI -->
+    <div class="section">
 
-    <div class="add-area">
-
-        <h2>単語を追加</h2>
-
-        <div class="input-group">
-            <label>単語</label>
-            <input id="newWord">
+        <div class="mode-bar">
+            <button id="allBtn" class="mode-btn active" onclick="setMode('all')">全単語</button>
+            <button id="reviewBtn" class="mode-btn" onclick="setMode('review')">復習</button>
         </div>
 
-        <div class="input-group">
-            <label>意味</label>
-            <input id="newMeaning">
-        </div>
-
-        <button class="add-btn" onclick="addWord()">追加</button>
-
-        <div class="message" id="message"></div>
-
-        <div class="list-title">登録済み単語</div>
-
-        <div id="wordList"></div>
-
     </div>
+
+    <div class="section">
+        <select id="studyFilter" onchange="renderStudy()"></select>
+    </div>
+
+    <div id="studyList" class="list"></div>
 
 </div>
 
@@ -332,368 +262,186 @@ input{
 
 <script>
 
-let cards = [];                                                                   let current = 0;                                                                                                                        /* -----------------------------
-   ローカルストレージから読み込み
------------------------------ */
+let words = JSON.parse(localStorage.getItem("words")) || [];
+let categories = JSON.parse(localStorage.getItem("categories")) || ["未分類"];
 
-function loadCards(){
+/* ★追加：モード */
+let mode = "all";
 
-    const saved = localStorage.getItem("cards");
+function save(){
+    localStorage.setItem("words", JSON.stringify(words));
+    localStorage.setItem("categories", JSON.stringify(categories));
+}
 
-    if(saved){
+function show(page){
+    document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
 
-        cards = JSON.parse(saved);
+    document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+    event.target.classList.add("active");
+}
 
-    }else{
+/* ★追加：モード切替 */
+function setMode(m){
+    mode = m;
 
-        cards = [
+    document.getElementById("allBtn").classList.remove("active");
+    document.getElementById("reviewBtn").classList.remove("active");
 
-            {word:"Coffee",meaning:"コーヒー"},
-            {word:"Relax",meaning:"くつろぐ"},
-            {word:"Delicious",meaning:"おいしい"},
-            {word:"Aroma",meaning:"香り"},
-            {word:"Brew",meaning:"淹れる"}
-
-        ];
-
+    if(m === "all"){
+        document.getElementById("allBtn").classList.add("active");
+    } else {
+        document.getElementById("reviewBtn").classList.add("active");
     }
 
+    renderStudy();
 }
 
-/* -----------------------------
-   保存
------------------------------ */
-
-function saveCards(){
-
-    localStorage.setItem(
-        "cards",
-        JSON.stringify(cards)
-    );
-
+/* 追加 */
+function addCategory(){
+    const c = newCategory.value.trim();
+    if(!c) return;
+    if(!categories.includes(c)) categories.push(c);
+    save();
+    render();
+    newCategory.value="";
 }
 
-/* -----------------------------
-   カード表示
------------------------------ */
-
-const wordEl=document.getElementById("word");
-const meaningEl=document.getElementById("meaning");
-const progress=document.getElementById("progress");
-
-function renderCard(){
-
-    if(cards.length===0){
-
-        wordEl.textContent="単語がありません";
-        meaningEl.textContent="";
-        meaningEl.classList.remove("show");
-        progress.textContent="0 / 0";
-
-        return;
-
-    }
-
-    wordEl.textContent=cards[current].word;
-    meaningEl.textContent=cards[current].meaning;
-
-    meaningEl.classList.remove("show");
-
-    progress.textContent=
-        `${current+1} / ${cards.length}`;
-
+function deleteCategory(name){
+    if(!confirm("削除しますか？")) return;
+    categories = categories.filter(c=>c!==name);
+    words.forEach(w=>{if(w.category===name) w.category="未分類";});
+    save();
+    render();
 }
-
-/* -----------------------------
-   意味表示
------------------------------ */
-
-document.getElementById("card").onclick=function(){
-
-    if(cards.length===0)return;
-
-    meaningEl.classList.toggle("show");
-
-};
-
-/* -----------------------------
-   次へ
------------------------------ */
-
-function nextCard(){
-
-    if(cards.length===0)return;
-
-    current++;
-
-    if(current>=cards.length){
-
-        current=0;
-
-    }
-
-    renderCard();
-
-}
-
-/* -----------------------------
-   前へ
------------------------------ */
-
-function prevCard(){
-
-    if(cards.length===0)return;
-
-    current--;
-
-    if(current<0){
-
-        current=cards.length-1;
-
-    }
-
-    renderCard();
-
-}
-
-/* -----------------------------
-   一覧表示
------------------------------ */
-
-function renderList(){
-
-    const list=document.getElementById("wordList");
-
-    list.innerHTML="";
-
-    cards.forEach((c,i)=>{
-
-        list.innerHTML+=`
-
-        <div class="word-item">
-
-            <div>
-
-                <div class="word-name">
-                    ${c.word}
-                </div>
-
-                <div class="word-meaning">
-                    ${c.meaning}
-                </div>
-
-            </div>
-
-            <div class="actions">
-
-                <button
-                    class="edit-btn"
-                    onclick="editWord(${i})"
-                    title="編集">
-
-                    ✎
-
-                </button>
-
-                <button
-                    class="delete-btn"
-                    onclick="deleteWord(${i})"
-                    title="削除">
-
-                    ×
-
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
-
-    });
-
-}
-
-/* -----------------------------
-   単語追加
------------------------------ */
 
 function addWord(){
+    const w=word.value.trim();
+    const m=meaning.value.trim();
+    const c=categorySelect.value;
 
-    const w=document
-        .getElementById("newWord")
-        .value
-        .trim();
+    if(!w||!m){alert("入力してください");return;}
 
-    const m=document
-        .getElementById("newMeaning")
-        .value
-        .trim();
+    words.push({word:w,meaning:m,category:c,miss:0});
+    save();
+    render();
 
-    if(!w || !m){
-
-        alert("単語と意味を入力してください");
-
-        return;
-
-    }
-
-    cards.push({
-
-        word:w,
-        meaning:m
-
-    });
-
-    saveCards();
-
-    document.getElementById("newWord").value="";
-    document.getElementById("newMeaning").value="";
-
-    document.getElementById("message").textContent=
-        "追加しました";
-
-    setTimeout(()=>{
-
-        document.getElementById("message").textContent="";
-
-    },1500);
-
-    renderCard();
-    renderList();
-
-}/* -----------------------------
-   単語削除
------------------------------ */
+    word.value="";
+    meaning.value="";
+}
 
 function deleteWord(i){
-
     if(!confirm("削除しますか？")) return;
-
-    cards.splice(i,1);
-
-    saveCards();
-
-    if(cards.length===0){
-
-        current=0;
-
-    }else if(current>=cards.length){
-
-        current=cards.length-1;
-
-    }
-
-    renderCard();
-    renderList();
-
+    words.splice(i,1);
+    save();
+    render();
 }
 
-/* -----------------------------
-   単語編集（✎ボタン）
------------------------------ */
-
-function editWord(i){
-
-    const newWord = prompt(
-        "単語を編集してください",
-        cards[i].word
-    );
-
-    if(newWord === null) return;
-
-    const word = newWord.trim();
-
-    if(word === ""){
-
-        alert("単語を入力してください。");
-        return;
-
-    }
-
-    const newMeaning = prompt(
-        "意味を編集してください",
-        cards[i].meaning
-    );
-
-    if(newMeaning === null) return;
-
-    const meaning = newMeaning.trim();
-
-    if(meaning === ""){
-
-        alert("意味を入力してください。");
-        return;
-
-    }
-
-    cards[i].word = word;
-    cards[i].meaning = meaning;
-
-    saveCards();
-
-    renderCard();
-    renderList();
-
-    document.getElementById("message").textContent =
-        "編集しました";
-
-    setTimeout(()=>{
-
-        document.getElementById("message").textContent = "";
-
-    },1500);
-
+function ok(e,i){
+    e.stopPropagation();
+    if(words[i].miss>0) words[i].miss--;
+    save();
+    render();
 }
 
-/* -----------------------------
-   タブ切り替え
------------------------------ */
+function ng(e,i){
+    e.stopPropagation();
+    words[i].miss++;
+    save();
+    render();
+}
 
-function showTab(tab){
+function openCard(i){
+    document.getElementById("card-"+i).classList.add("show");
+}
 
-    document
-        .querySelectorAll(".tab-content")
-        .forEach(t=>t.classList.remove("active"));
+/* 描画 */
+function renderCategories(){
+    const el=document.getElementById("categoryList");
+    el.innerHTML="";
+    categories.forEach(c=>{
+        el.innerHTML+=`
+        <div class="category-item">
+            <span>${c}</span>
+            <button class="x-btn" onclick="deleteCategory('${c}')">×</button>
+        </div>`;
+    });
+}
 
-    document
-        .querySelectorAll(".tab-btn")
-        .forEach(b=>b.classList.remove("active"));
+function renderSelects(){
+    const sel=categorySelect;
+    const filter=studyFilter;
 
-    document
-        .getElementById(tab+"Tab")
-        .classList.add("active");
+    sel.innerHTML="";
+    filter.innerHTML=`<option value="all">すべて</option>`;
 
-    if(tab==="study"){
+    categories.forEach(c=>{
+        sel.innerHTML+=`<option value="${c}">${c}</option>`;
+        filter.innerHTML+=`<option value="${c}">${c}</option>`;
+    });
+}
 
-        document
-            .querySelectorAll(".tab-btn")[0]
-            .classList.add("active");
+function renderManage(){
+    const el=document.getElementById("manageList");
+    el.innerHTML="";
+    words.forEach((v,i)=>{
+        el.innerHTML+=`
+        <div class="card">
+            <div class="delete-word">
+                <button class="x-btn" onclick="deleteWord(${i})">×</button>
+            </div>
+            <div class="word">${v.word}</div>
+            <div class="category">📂 ${v.category}</div>
+            <div class="meaning">${v.meaning}</div>
+            <div class="miss">ミス: ${v.miss}</div>
+        </div>`;
+    });
+}
 
-    }else{
+/* ★修正：復習モード追加 */
+function renderStudy(){
 
-        document
-            .querySelectorAll(".tab-btn")[1]
-            .classList.add("active");
+    const filter=studyFilter.value;
+    const el=document.getElementById("studyList");
 
+    el.innerHTML="";
+
+    let list = filter === "all"
+        ? words
+        : words.filter(v=>v.category===filter);
+
+    // ★ここが復習モード
+    if(mode === "review"){
+        list = list.filter(v=>v.miss > 0);
     }
 
+    list.forEach(v=>{
+        const i=words.indexOf(v);
+
+        el.innerHTML+=`
+        <div class="card" id="card-${i}" onclick="openCard(${i})">
+            <div class="word">${v.word}</div>
+            <div class="category">📂 ${v.category}</div>
+            <div class="meaning">${v.meaning}</div>
+
+            <div class="buttons">
+                <button class="btn ok" onclick="ok(event,${i})">正解</button>
+                <button class="btn ng" onclick="ng(event,${i})">不正解</button>
+            </div>
+
+            <div class="miss">ミス: ${v.miss}</div>
+        </div>`;
+    });
 }
 
-/* -----------------------------
-   初期化
------------------------------ */
-
-loadCards();
-
-if(cards.length>0){
-
-    current=0;
-
+function render(){
+    renderCategories();
+    renderSelects();
+    renderManage();
+    renderStudy();
 }
 
-renderCard();
-renderList();
+render();
 
 </script>
 
